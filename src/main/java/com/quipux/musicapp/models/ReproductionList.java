@@ -1,24 +1,25 @@
 package com.quipux.musicapp.models;
 
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.Builder;
+import lombok.*;
 
 import java.util.List;
 
-@Getter
+@ToString
 @Setter
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 public class ReproductionList {
+
+    private String playListId;
 
     private String name;
 
     private String description;
 
-    private List<Songs> songsList;
+    private List<Song> songsList;
+
+    private String correlationId;
+
 }

@@ -1,22 +1,20 @@
 package com.quipux.musicapp.models;
 
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.Builder;
+import lombok.*;
 
-@Getter
-@Setter
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-public class Songs {
+@Getter
+@Setter
+public class Song {
 
     private String title;
 
     private String artist;
+
+    private String album;
 
     private String year;
 
