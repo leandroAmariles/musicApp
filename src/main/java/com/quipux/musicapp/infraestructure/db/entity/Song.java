@@ -27,7 +27,7 @@ public class Song {
 
     private String gender;
 
-    @ManyToMany(mappedBy = "songsList")
+    @ManyToMany(mappedBy = "songsList", fetch = FetchType.EAGER)
     private List<ReproductionList> reroductionLists = new ArrayList<>();
 
 }

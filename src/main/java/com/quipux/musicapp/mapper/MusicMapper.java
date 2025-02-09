@@ -12,6 +12,8 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.net.URI;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Mapper
 public interface MusicMapper {
@@ -42,16 +44,25 @@ public interface MusicMapper {
 
     @Named("mapUriReference")
     default URI mapUriReference(String playListId) {
-        return URI.create("http://localhost:8080/music/".concat(playListId));
+        return URI.create("/music/".concat(playListId));
 
     }
 
     @Mapping(source = "name", target = "nombre")
     @Mapping(source = "description", target = "descripcion")
-    @Mapping(source = "songsList", target = "canciones")
+    @Mapping(source = "songsList", target = "canciones", qualifiedByName = "mapSongList")
     ReproductionListRecord fromEntityToDto(com.quipux.musicapp.infraestructure.db.entity.ReproductionList reproductionListMono);
 
 
+    @Named("mapSongList")
+    default List<SongDto> mapSongList(List<com.quipux.musicapp.infraestructure.db.entity.Song> songsList) {
+        return songsList.stream().map(song -> SongDto.builder()
+                .titulo(song.getTitle())
+                .artista(song.getArtist())
+                .anno(song.getYear())
+                .album(song.getGender())
+                .build()).collect(Collectors.toList());
+    }
 
 
 }

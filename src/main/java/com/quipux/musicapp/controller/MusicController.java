@@ -40,7 +40,35 @@ public class MusicController implements com.quipux.musicapp.controller.api.Music
 
     @Override
     @DeleteMapping("/lists/{listName}")
-    public ResponseEntity<Mono<Void>> deleteReproductionList(@PathVariable String listName) {
-        return new ResponseEntity<>(iMusicService.deleteReproductionList(listName), HttpStatus.NO_CONTENT);
+    public ResponseEntity<Void> deleteReproductionList(@PathVariable String listName) {
+        iMusicService.deleteReproductionList(listName);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+    @Override
+    @PostMapping("/unsecured/save")
+    public ResponseEntity<Mono<ReproductionListRecord>> unsecuredSaveReproductionList(@Valid @RequestBody ReproductionListRecord reproductionListRecord) {
+        return new ResponseEntity<>(iMusicService.saveReproductionList(reproductionListRecord), HttpStatus.CREATED);
+    }
+
+    @Override
+    @GetMapping("/unsecured/list")
+    public ResponseEntity<Flux<ReproductionListRecord>> unsecuredListReproductionList() {
+        return new ResponseEntity<>(iMusicService.listReproductionList(), HttpStatus.OK);
+    }
+
+    @Override
+    @GetMapping("/unsecured/lists/{listName}")
+    public ResponseEntity<Mono<ReproductionListRecord>> unsecuredGetReproductionList(@PathVariable String listName) {
+        return new ResponseEntity<>(iMusicService.getReproductionList(listName), HttpStatus.OK);
+    }
+
+    @Override
+    @DeleteMapping("/unsecured/lists/{listName}")
+    public ResponseEntity<Void> unsecuredDeleteReproductionList(@PathVariable String listName) {
+        iMusicService.deleteReproductionList(listName);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+
 }

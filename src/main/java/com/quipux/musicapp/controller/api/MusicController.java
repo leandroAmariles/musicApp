@@ -14,5 +14,15 @@ public interface MusicController {
     public ResponseEntity<Flux<ReproductionListRecord>> listReproductionList();
 
     public ResponseEntity<Mono<ReproductionListRecord>> getReproductionList(String name);
-    public ResponseEntity<Mono<Void>> deleteReproductionList(String id);
+
+    public ResponseEntity<Void> deleteReproductionList(String id);
+
+
+    public ResponseEntity<Mono<ReproductionListRecord>> unsecuredSaveReproductionList(ReproductionListRecord reproductionListRecord);
+
+    public ResponseEntity<Flux<ReproductionListRecord>> unsecuredListReproductionList();
+
+    public ResponseEntity<Mono<ReproductionListRecord>> unsecuredGetReproductionList(String name);
+
+    public ResponseEntity<Void> unsecuredDeleteReproductionList(String id);
 }

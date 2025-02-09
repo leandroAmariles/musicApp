@@ -1,8 +1,11 @@
+# Etapa de construcción: Usamos una imagen de Maven con JDK 17
 FROM maven:3.8.4-openjdk-17 AS build
 
 LABEL authors="Leandro"
 
+# Directorio de trabajo en el contenedor
 WORKDIR /app
+
 
 COPY pom.xml .
 
@@ -12,12 +15,12 @@ COPY src ./src
 
 RUN mvn clean package -DskipTests
 
-FROM tomcat:10.1-jdk17
+FROM openjdk:17-jdk-slim
 
-RUN rm -rf /usr/local/tomcat/webapps/*
 
-COPY --from=build /app/target/*.war /usr/local/tomcat/webapps/ROOT.war
+COPY --from=build /app/target/*.jar /app/app.jar
+
 
 EXPOSE 8080
 
-CMD ["catalina.sh", "run"]
+CMD ["java", "-jar", "/app/app.jar"]

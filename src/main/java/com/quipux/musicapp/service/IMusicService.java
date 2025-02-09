@@ -14,5 +14,5 @@ public interface IMusicService {
 
         public Mono<ReproductionListRecord> getReproductionList(String name);
 
-        public Mono<Void> deleteReproductionList(String id);
+        public void deleteReproductionList(String id);
 }

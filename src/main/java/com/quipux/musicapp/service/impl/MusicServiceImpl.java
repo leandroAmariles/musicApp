@@ -85,13 +85,9 @@ public class MusicServiceImpl implements IMusicService {
         });
     }
 
-
     @Override
-    public Mono<Void> deleteReproductionList(String name) {
-        return Mono.defer(() -> {
-            musicAdapter.deleteReproductionList(name);
-            return Mono.empty();
-        });
+    public void deleteReproductionList(String name) {
+         musicAdapter.deleteReproductionList(name);
     }
 
     @KafkaListener(topics = "${kafka.topic.responseReproductionList}", groupId = "musicApp")
